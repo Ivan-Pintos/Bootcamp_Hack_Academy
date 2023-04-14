@@ -1,0 +1,18 @@
+.btn-orange {
+	background-color: #ff6833;
+	color: white;
+	border-radius: 20px;
+}
+.btn-orange:hover {
+	background-color: #ff8153;
+	color: white;
+}
+.bg-gradient-orange-custom {
+	background: rgb(255, 104, 51);
+	background: linear-gradient(165deg, rgba(255, 104, 51, 1) 15%, rgba(250, 196, 86, 1) 80%);
+}
+.cover {
+	background-size: cover;
+	background-image: url(resources/image.jpg);
+	opacity: 50%;
+}
