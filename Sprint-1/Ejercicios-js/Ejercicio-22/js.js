@@ -11,10 +11,11 @@ const audioElements = [
 const teclas = ["a", "s", "d", "f", "j", "k", "l"];
 botones.forEach((boton, index) => {
   boton.addEventListener("click", () => {
-    audioElements[index].play();
+    audioElements[index].pause(),
+      (audioElements[index].currentTime = 0),
+      audioElements[index].play();
   });
   document.addEventListener("keydown", (event) => {
-    if (event.key === teclas[index])
-      (audioElements[index].currentTime = 0), audioElements[index].play(); // boton.click()
+    if (event.key === teclas[index]) boton.click(); // audioElements[index].play();
   });
 });
