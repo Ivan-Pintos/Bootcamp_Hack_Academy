@@ -1,4 +1,4 @@
-const botones = document.querySelectorAll(".btn");
+const botones = document.querySelectorAll("button");
 const audioElements = [
   new Audio("sounds/tom-1.mp3"),
   new Audio("sounds/tom-2.mp3"),
