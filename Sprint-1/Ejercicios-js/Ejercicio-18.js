@@ -1,21 +1,13 @@
 function correctParentheses(Parentheses) {
   let count = 0;
-  let openParentheses = false;
-
   for (const char of Parentheses) {
     if (char == "(") {
-      openParentheses = true;
       count++;
-      console.log(1);
-    } else if (char == ")" && openParentheses == true) {
+    } else if (char == ")") {
       count--;
-      console.log(1);
+      if (count < 0) return false;
     }
   }
-  if (count === 0) {
-    return true;
-  } else {
-    return false;
-  }
+  return count === 0;
 }
-console.log(correctParentheses("(())((()())())"));
+console.log(correctParentheses("())("));
