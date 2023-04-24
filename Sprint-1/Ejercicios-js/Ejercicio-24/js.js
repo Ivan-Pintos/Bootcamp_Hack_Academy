@@ -1,4 +1,4 @@
-const TableBody = document.querySelector("#Table tbody");
+const TableBody = document.querySelector("tbody");
 const InputSearch = document.querySelector("#search");
 fetch(
   "https://gist.githubusercontent.com/SuecoMarcus/a77af69f0e84c3125a5c0cf43a3ac41b/raw/918cd058b7e2286a36e79643c63a5ebca097d7c8/users.json"
@@ -61,7 +61,7 @@ InputSearch.addEventListener("input", () => {
       }
     });
 });
-
+// mejorar esto con objetos
 function changeTildesToNormalString(str) {
   const tildes = "áéíóú";
   const withoutTildes = "aeiou";
@@ -76,3 +76,4 @@ function changeTildesToNormalString(str) {
   }
   return newstr;
 }
+// Crear funcion que haga el fetch

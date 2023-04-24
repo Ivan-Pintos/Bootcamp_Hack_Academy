@@ -1,4 +1,4 @@
-const BotonModal = document.querySelectorAll("#btn-modal");
+const BotonModal = document.querySelectorAll("button");
 const ModalContainer = document.getElementById("modal");
 
 BotonModal.forEach((boton) => {
