@@ -12,6 +12,8 @@ console.log(
   slugify("¡Quiero viajar a Bélgica & España! 󰎐󰎼", {
     lower: true,
     strict: true,
+    locale: "es",
+    trim: true,
   })
 );
 
