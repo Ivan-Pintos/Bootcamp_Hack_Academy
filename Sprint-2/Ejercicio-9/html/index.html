@@ -18,16 +18,18 @@
     >
       <h1 class="">Ingresar dos números para multiplicar</h1>
       <form
-        method="get"
-        action="/multiplicar"
         class="d-flex flex-column justify-content-center align-items-start w-100 gap-3"
       >
         <label for="num1" class="form-label"><b>Número 1</b></label>
         <input type="number" name="num1" id="num1" class="form-control w-100" />
         <label for="num2" class="form-label"><b>Número 2</b></label>
         <input type="number" name="num2" id="num2" class="form-control w-100" />
-        <button type="submit" class="btn btn-success">Multiplicar</button>
+        <button id="multiply_button" class="btn btn-success">
+          Multiplicar
+        </button>
       </form>
+      <div id="response-container"></div>
     </div>
+    <script src="js.js"></script>
   </body>
 </html>
