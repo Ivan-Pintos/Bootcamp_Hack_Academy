@@ -1,0 +1,9 @@
+.btn-orange {
+  background-color: #ff6833;
+  color: white;
+  border-radius: 20px;
+}
+.btn-orange:hover {
+  background-color: #ff8153;
+  color: white;
+}
