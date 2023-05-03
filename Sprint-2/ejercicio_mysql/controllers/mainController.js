@@ -1,4 +1,3 @@
-const express = require("express"); // Unnecesary
 const querys = require("../db/query");
 
 module.exports = {

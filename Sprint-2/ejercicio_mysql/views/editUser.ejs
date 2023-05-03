@@ -22,6 +22,7 @@
     >
       <div class="container">
         <div class="shadow">
+          <% if (user[0] != undefined) { %>
           <div class="card">
             <div class="card-header">
               <h1>Modificar Usuario</h1>
@@ -63,6 +64,16 @@
               </form>
             </div>
           </div>
+          <% } else { %>
+          <div class="alert alert-danger" role="alert">
+            <h2>ERROR</h2>
+            <p>
+              La ID ingresada no corresponde a ningun usuario, porfavor
+              compruebe en la pagina de inicio que la id ingresada es la
+              correcta
+            </p>
+          </div>
+          <% } %>
         </div>
         <a
           href="/usuarios"
