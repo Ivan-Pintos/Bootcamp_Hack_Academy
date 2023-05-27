@@ -1,8 +1,8 @@
 function Nav() {
   return (
-    <nav className="d-flex align-items-center justify-content-between position-absolute w-100 start-0 p-3">
-      <span className="fw-bold font-2">Hackflix</span>
-      <a href="/" className="text-secondary">
+    <nav className="flex text-lg justify-between place-items-center absolute inset-x-10">
+      <span className="font-bold">Hackflix</span>
+      <a href="/" className="font-thin text-gray-200 underline  text-sm">
         Home
       </a>
     </nav>

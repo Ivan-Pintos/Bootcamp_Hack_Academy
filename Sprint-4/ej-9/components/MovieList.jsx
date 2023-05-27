@@ -1,14 +1,13 @@
 import Movie from "../components/Movie";
 function MovieList({ movies }) {
-  console.log();
   return (
-    <div className="d-flex flex-wrap gap-1 justify-content-center bg-black p-4">
+    <div className="flex flex-wrap bg-black p-10 justify-center gap-4">
       {movies.length !== 0 ? (
         movies.map((movie) => {
           return <Movie movie={movie} key={movie.id} />;
         })
       ) : (
-        <span className="text-white">
+        <span className="text-white text-2xl">
           Lo sentimos, no se encontraron películas con el rating solicitado
         </span>
       )}

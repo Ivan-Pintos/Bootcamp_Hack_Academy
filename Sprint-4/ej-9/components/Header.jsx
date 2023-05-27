@@ -1,15 +1,15 @@
 import Nav from "./nav";
-import "./Header.css";
 function Header() {
   return (
-    <div className="container d-flex flex-column  position-relative bg-Header text-white">
+    <div className=" container mx-auto py-5 text-white relative h-64 xl:w-11/12 bg-[url('../public/header.jpg')] bg-cover">
       <Nav />
-      <div
-        className="text-center d-flex flex-column justify-content-center"
-        style={{ height: "300px" }}
-      >
-        <h1>¡Tus peliculas favoritas!</h1>
-        <h2>Lorem ipsum dolor sit amet consectetur</h2>
+      <div className="flex flex-col place-items-center h-full justify-center text-center">
+        <h1 className="text-xl sm:text-2xl md:text-3xl">
+          ¡Tus peliculas favoritas!
+        </h1>
+        <h2 className="text-sm sm:text-lg md:text-xl font-thin">
+          Lorem ipsum dolor sit amet consectetur
+        </h2>
       </div>
     </div>
   );
