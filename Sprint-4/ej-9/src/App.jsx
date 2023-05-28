@@ -1,9 +1,10 @@
 import MoviesData from "../data/data";
+
 import Header from "../components/header";
 import MovieList from "../components/MovieList";
+import Filter from "../components/filter";
 
 import { useState, useEffect } from "react";
-import { Rating } from "react-simple-star-rating";
 
 import "./index.css";
 
@@ -13,8 +14,7 @@ function App() {
 
   function handleMoviesRate(rate) {
     rate = rate * 2;
-    console.log(rate);
-    if (rate >= 0 && rate < 11) {
+    if (rate >= 0 && rate <= 10) {
       setMoviesRate(rate);
     }
   }
@@ -32,15 +32,7 @@ function App() {
     <>
       <Header />
       <main className="container mx-auto xl:w-11/12">
-        <div className="flex justify-center items-center gap-3 my-2 p-1 border border-yellow-400 text-yellow-400 bg-black">
-          <span className="text-white font-thin">Filtrar por rating:</span>
-          <Rating
-            onClick={handleMoviesRate}
-            size="25"
-            SVGstyle={{ display: "inline-block" }}
-            allowFraction="true"
-          />
-        </div>
+        <Filter setRating={handleMoviesRate} />
         <MovieList movies={movies} />
       </main>
     </>
