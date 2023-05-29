@@ -1,32 +1,21 @@
 import MovieList from "../components/MovieList";
 import Filter from "../components/filter";
-import MoviesData from "../../data/data";
-
-import { useState, useEffect } from "react";
+import SInfinite from "../components/ScrollInfinite";
+import { useState } from "react";
 
 function Home() {
-  const [movies, setMovies] = useState(MoviesData);
+  const [movies, setMovies] = useState([]);
   const [moviesRate, setMoviesRate] = useState(0);
 
   function handleMoviesRate(rate) {
-    rate = rate * 2;
-    rate = rate - 2;
-    setMoviesRate(rate);
+    setMoviesRate(rate * 2 - 2);
   }
-
-  useEffect(() => {
-    const filterMovies = MoviesData.filter((movie) => {
-      if (movie.vote_average >= moviesRate) {
-        return movie;
-      }
-    });
-    setMovies(filterMovies);
-  }, [moviesRate]);
 
   return (
     <main className="container mx-auto xl:w-11/12">
       <Filter setRating={handleMoviesRate} />
-      <MovieList movies={movies} />
+      <MovieList movies={movies} moviesRate={moviesRate} />
+      <SInfinite movies={movies} setMovies={setMovies} />
     </main>
   );
 }

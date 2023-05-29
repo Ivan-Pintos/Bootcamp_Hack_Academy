@@ -2,7 +2,7 @@ function Movie({ movie, openModal, setMovieModal }) {
   return (
     <div className="border border-yellow-400  ">
       <img
-        src={movie.poster_path}
+        src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
         alt={`Imagen de la pelicula: ${movie.original_title}`}
         className=" w-30 h-40 md:h-60 md:w-40 hover:cursor-pointer"
         onClick={() => {
