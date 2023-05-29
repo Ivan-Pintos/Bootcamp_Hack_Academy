@@ -1,10 +1,13 @@
-function Movie({ movie }) {
+function Movie({ movie, openModal, setMovieModal }) {
   return (
     <div className="border border-yellow-400  ">
       <img
         src={movie.poster_path}
         alt={`Imagen de la pelicula: ${movie.original_title}`}
-        className=" w-20 h-40 md:h-60 md:w-40"
+        className=" w-30 h-40 md:h-60 md:w-40 hover:cursor-pointer"
+        onClick={() => {
+          openModal(true), setMovieModal(movie);
+        }}
       />
       <span className=" text-white flex item-center justify-center gap-2 text-xs md:text-lg">
         {`Rating ${movie.vote_average}`}
