@@ -13,10 +13,10 @@ function App() {
   const [moviesRate, setMoviesRate] = useState(0);
 
   function handleMoviesRate(rate) {
+    console.log(rate);
     rate = rate * 2;
-    if (rate >= 0 && rate <= 10) {
-      setMoviesRate(rate);
-    }
+    rate = rate - 2;
+    setMoviesRate(rate);
   }
 
   useEffect(() => {
