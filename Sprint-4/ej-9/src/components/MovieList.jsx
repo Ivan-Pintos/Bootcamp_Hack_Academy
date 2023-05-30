@@ -7,6 +7,7 @@ function MovieList({ movies, moviesRate, setMovies }) {
   // const [open, setOpen] = useState(false);
   // const [movieModal, setMovieModal] = useState({});
 
+  //La API tiene algunas peliculas con ID repetidas, esto evita que se impriman
   const filterMovies = movies.filter((movie, index, self) => {
     return index === self.findIndex((m) => m.id === movie.id);
   });

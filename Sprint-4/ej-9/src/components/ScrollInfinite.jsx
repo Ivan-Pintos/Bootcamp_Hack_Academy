@@ -32,7 +32,6 @@ const IScroll = ({ movies, setMovies, moviesRate }) => {
   const fetchMoreData = () => {
     if (hasMore === true) {
       setPage(page + 1);
-      console.log(page);
       const getMovies = async () => {
         const options = {
           method: "GET",
@@ -48,7 +47,6 @@ const IScroll = ({ movies, setMovies, moviesRate }) => {
 
         setMovies([...movies, ...response.data.results]);
         setData([...movies, ...response.data.results]);
-        console.log(response.data.results);
       };
       getMovies();
     }
