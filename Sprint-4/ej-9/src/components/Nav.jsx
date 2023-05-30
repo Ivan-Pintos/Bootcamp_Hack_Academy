@@ -21,6 +21,11 @@ function Nav() {
             Contact
           </span>
         </Link>
+        <Link to="/buscar">
+          <span className="font-thin text-gray-200 underline text-sm">
+            Search
+          </span>
+        </Link>
       </div>
     </nav>
   );
