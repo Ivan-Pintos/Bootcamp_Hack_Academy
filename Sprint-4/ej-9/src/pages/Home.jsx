@@ -1,6 +1,5 @@
 import MovieList from "../components/MovieList";
 import Filter from "../components/filter";
-import SInfinite from "../components/ScrollInfinite";
 import { useState } from "react";
 
 function Home() {
@@ -14,8 +13,11 @@ function Home() {
   return (
     <main className="container mx-auto xl:w-11/12">
       <Filter setRating={handleMoviesRate} />
-      <MovieList movies={movies} moviesRate={moviesRate} />
-      <SInfinite movies={movies} setMovies={setMovies} />
+      <MovieList
+        movies={movies}
+        moviesRate={moviesRate}
+        setMovies={setMovies}
+      />
     </main>
   );
 }

@@ -9,6 +9,7 @@ export default function Filter({ setRating }) {
         size="25"
         SVGstyle={{ display: "inline-block" }}
         allowFraction="true"
+        initialValue={0}
       />
     </div>
   );

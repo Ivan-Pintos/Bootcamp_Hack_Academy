@@ -2,17 +2,16 @@ import { useState, useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import axios from "axios";
 
-const IScroll = ({ movies, setMovies }) => {
+const IScroll = ({ movies, setMovies, moviesRate }) => {
   const [data, setData] = useState(movies);
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
 
   useEffect(() => {
-    // Ejecutar el código por primera vez al cargar la página
-    const getMovies = async () => {
+    const getFirstMovies = async () => {
       const options = {
         method: "GET",
-        url: `https://api.themoviedb.org/3/movie/popular?language=en-US&page=${page}`,
+        url: `https://api.themoviedb.org/3/discover/movie?include_adult=false&page=1&sort_by=popularity.desc&vote_average.gte=${moviesRate}`,
         headers: {
           accept: "application/json",
           Authorization:
@@ -24,11 +23,11 @@ const IScroll = ({ movies, setMovies }) => {
 
       setMovies(response.data.results);
       setData(response.data.results);
-      setPage(page + 1);
+      setPage(2);
     };
 
-    getMovies();
-  }, []);
+    getFirstMovies();
+  }, [moviesRate]);
 
   const fetchMoreData = () => {
     if (hasMore === true) {
@@ -37,7 +36,7 @@ const IScroll = ({ movies, setMovies }) => {
       const getMovies = async () => {
         const options = {
           method: "GET",
-          url: `https://api.themoviedb.org/3/movie/popular?language=en-US&page=${page}`,
+          url: `https://api.themoviedb.org/3/discover/movie?page=${page}&sort_by=popularity.desc&vote_average.gte=${moviesRate}`,
           headers: {
             accept: "application/json",
             Authorization:
@@ -49,6 +48,7 @@ const IScroll = ({ movies, setMovies }) => {
 
         setMovies([...movies, ...response.data.results]);
         setData([...movies, ...response.data.results]);
+        console.log(response.data.results);
       };
       getMovies();
     }
