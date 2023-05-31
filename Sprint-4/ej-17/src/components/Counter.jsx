@@ -32,7 +32,7 @@ export default () => {
           />
           <button
             className="py-2 px-4 w-full dark:border-white dark:bg-slate-900 border-black bg-slate-200 dark:text-slate-400 text-slate-800"
-            onClick={() => dispatch(CounterActions.SetNumber(number))}
+            onClick={() => dispatch(CounterActions.SetNumber(Number(number)))}
           >
             Asignar
           </button>
