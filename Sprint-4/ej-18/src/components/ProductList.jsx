@@ -1,18 +1,20 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import ProductActions from "../actions/ProductActions";
 export default function () {
   const { ProductList } = useSelector((state) => state);
   const [inputProduct, setInputProduct] = useState("");
-  const [products, setProducts] = useState([]);
   const dispatch = useDispatch();
-
-  useEffect(() => setProducts(ProductList), []);
 
   const handlerAddProduct = (productObject) => {
     dispatch(ProductActions.AddProduct(productObject));
-    setProducts([...products, productObject]);
+  };
+  const handlerSelectProduct = (id) => {
+    dispatch(ProductActions.SelectionProduct(id));
+  };
+  const handlerRemoveProduct = (id) => {
+    dispatch(ProductActions.RemoveProduct(id));
   };
   return (
     <div
@@ -30,32 +32,52 @@ export default function () {
           bg-slate-200 rounded-s-sm outline-none
           text-slate-600
           "
+          value={inputProduct}
           onChange={(e) => setInputProduct(e.target.value)}
         />
         <button
           className="bg-slate-300 w-1/6 rounded-e-sm"
-          onClick={() =>
+          onClick={() => {
+            setInputProduct("");
             handlerAddProduct({
+              id:
+                ProductList.length !== 0
+                  ? ProductList[ProductList.length - 1].id + 1
+                  : 1,
               name: inputProduct,
-              id: products[products.length - 1] + 1,
-            })
-          }
+              selected: false,
+            });
+          }}
         >
           Icon
         </button>
       </div>
       <div className="">
-        {products.length !== 0 &&
-          products.map((product, index) => (
+        {ProductList.length !== 0 &&
+          ProductList.map((product) => (
             <div
               className="flex justify-between items-center border-b py-4 mb-2 border-slate-300"
-              key={index}
+              key={product.id}
             >
-              <input type="checkbox" className="mr-2" onChange={() => {}} />
-              <span className={`text-slate-900 dark:text-slate-300`}>
+              <input
+                type="checkbox"
+                className="mr-2"
+                onChange={() => handlerSelectProduct(product.id)}
+              />
+              <span
+                className={`text-slate-900 dark:text-slate-300 ${
+                  product.selected === true && "line-through"
+                }`}
+              >
                 {product.name}
               </span>
-              <button className="text-slate-900 dark:text-slate-300 border bg-slate-900 hover:bg-slate-800 border-slate-200 rounded px-2 py-1">
+              <button
+                className="
+                text-slate-900 dark:text-slate-300 
+                bg-slate-900 hover:bg-slate-800
+                  border border-slate-200 rounded px-2 py-1"
+                onClick={() => handlerRemoveProduct(product.id)}
+              >
                 Delete
               </button>
             </div>
