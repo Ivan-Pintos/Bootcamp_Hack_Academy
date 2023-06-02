@@ -16,11 +16,7 @@ export default () => {
               <div className="bg-slate-800 border-t-8 border-blue-500 px-4 py-8">
                 <h2 className="text-slate-300 text-2xl">
                   {market.name} (
-                  {
-                    market.products.filter(
-                      (product) => product.selected == true
-                    ).length
-                  }
+                  {market.products.filter((product) => product.selected).length}
                   /{market.products.length})
                 </h2>
                 <small className="text-slate-400 text-md">

@@ -111,14 +111,14 @@ export default () => {
                     >
                       <div className=" flex gap-20">
                         <input
-                          checked={product.selected === true ? true : false}
+                          checked={product.selected ? true : false}
                           type="checkbox"
                           className="mr-2"
                           onChange={() => handlerSelectProduct(product.id)}
                         />
                         <span
                           className={`text-slate-900 dark:text-slate-300 ${
-                            product.selected === true && "line-through"
+                            product.selected && "line-through"
                           }`}
                         >
                           {product.name}

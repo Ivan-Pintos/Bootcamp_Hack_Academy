@@ -81,33 +81,27 @@ export default function Modal() {
               >
                 <Dialog.Panel className="relative transform overflow-hidden rounded-lg text-left shadow-2xl transition-all w-full sm:w-2/3">
                   <form onSubmit={(e) => e.preventDefault}>
-                    <div className="bg-slate-700 px-4 pb-4 pt-5">
-                      <div className="flex flex-col gap-5">
-                        <Dialog.Title
-                          as="h3"
-                          className="font-bold text-xl leading-6 text-slate-200"
-                        >
-                          Nueva Lista
-                        </Dialog.Title>
-                        <div className="mt-2">
-                          <input
-                            type="text"
-                            placeholder="Nombre de la lista"
-                            value={inpuNameList}
-                            className=" border border-slate-950 rounded outline-none 
-                            w-full text-slate-200 bg-slate-600 py-2 px-2"
-                            onChange={(e) =>
-                              handlerInputNameList(e.target.value)
-                            }
-                          />
-                        </div>
-                      </div>
+                    <div className="bg-slate-700 px-4 pb-4 pt-5 flex flex-col gap-5">
+                      <Dialog.Title
+                        as="h3"
+                        className="font-bold text-xl leading-6 text-slate-200"
+                      >
+                        Nueva Lista
+                      </Dialog.Title>
+                      <input
+                        type="text"
+                        placeholder="Nombre de la lista"
+                        value={inpuNameList}
+                        className=" border border-slate-950 rounded outline-none 
+                            w-full text-slate-200 bg-slate-600 py-2 px-2 mt-2"
+                        onChange={(e) => handlerInputNameList(e.target.value)}
+                      />
                     </div>
                     <div className="bg-slate-800 px-4 py-3 flex justify-between">
                       <button
                         type="button"
                         className="w-20 rounded-md hover:bg-gray-50 ring-1 ring-inset ring-gray-300
-                      px-3 py-2 text-sm font-semibold text-slate-200 hover:text-slate-800"
+                        px-3 py-2 text-sm font-semibold text-slate-200 hover:text-slate-800"
                         ref={cancelButtonRef}
                         onClick={() => setOpen(false)}
                       >
