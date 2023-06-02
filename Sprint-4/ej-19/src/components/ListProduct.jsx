@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useParams } from "react-router-dom";
+import { useState } from "react";
 
 import {
   addProduct,
@@ -12,9 +13,28 @@ export default () => {
   const listMarket = useSelector((state) => state.listMarket);
   const params = useParams();
   const dispatch = useDispatch();
+  const [inputProductName, setInputProductName] = useState("");
 
   const handlerRemoveMarket = (id) => {
     dispatch(removeMarket(id));
+  };
+  const handlerInputProductName = (value) => {
+    setInputProductName(value);
+  };
+  const handlerCreateProduct = () => {
+    dispatch(addProduct({ id: Number(params.id), product: inputProductName }));
+    setInputProductName("");
+  };
+  const handlerDeleteProduct = (idProduct) => {
+    dispatch(
+      removeProduct({ mercadoId: Number(params.id), productId: idProduct })
+    );
+  };
+  const handlerSelectProduct = (idProduct) => {
+    console.log("Hola");
+    dispatch(
+      selectProduct({ mercadoId: Number(params.id), productId: idProduct })
+    );
   };
   return (
     <div className="flex flex-col items-center container mx-auto py-4 relative">
@@ -51,14 +71,24 @@ export default () => {
                     </svg>
                   </button>
                 </div>
-                <div className="flex mt-4">
+                <form
+                  action=""
+                  className="flex mt-4"
+                  onSubmit={(e) => e.preventDefault()}
+                >
                   <input
                     type="text"
-                    className="w-full  py-2 px-2
-                  bg-slate-200 rounded-s-sm outline-none
+                    className="w-full py-2 px-2
+                  bg-slate-200 rounded-s-lg outline-none
                   text-slate-600"
+                    value={inputProductName}
+                    onChange={(e) => handlerInputProductName(e.target.value)}
+                    placeholder="Ingrese un producto..."
                   />
-                  <button className="bg-slate-200 w-12  flex justify-center items-center text-slate-800 hover:text-slate-600">
+                  <button
+                    className="bg-slate-200 rounded-e-lg w-12 flex justify-center items-center text-slate-800 hover:text-slate-600"
+                    onClick={handlerCreateProduct}
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
@@ -72,7 +102,7 @@ export default () => {
                       />
                     </svg>
                   </button>
-                </div>
+                </form>
                 <div className="mx-4">
                   {market.products.map((product) => (
                     <div
@@ -80,7 +110,12 @@ export default () => {
                       key={product.id}
                     >
                       <div className=" flex gap-20">
-                        <input type="checkbox" className="mr-2" />
+                        <input
+                          checked={product.selected === true ? true : false}
+                          type="checkbox"
+                          className="mr-2"
+                          onChange={() => handlerSelectProduct(product.id)}
+                        />
                         <span
                           className={`text-slate-900 dark:text-slate-300 ${
                             product.selected === true && "line-through"
@@ -91,7 +126,7 @@ export default () => {
                       </div>
                       <button
                         className="text-red-800 hover:text-red-600"
-                        onClick={() => console.log("borrar")}
+                        onClick={() => handlerDeleteProduct(product.id)}
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"

@@ -1,28 +1,13 @@
-import { useSelector, useDispatch } from "react-redux";
-import { addMarket } from "../redux/listMarketSlice";
+import { useSelector } from "react-redux";
+
 import { Link } from "react-router-dom";
 
+import Modal from "./Modal";
 export default () => {
-  const listMarket = useSelector((state) => state.listMarket);
-  const dispatch = useDispatch();
+  const { listMarket } = useSelector((state) => state);
 
-  const hadlerCreateMarket = () => {
-    dispatch(
-      addMarket({
-        id: 4,
-        name: "Frutería",
-        createdDate: Date(),
-        products: [
-          { id: 1, name: "Bananas", selected: false },
-          { id: 2, name: "Manzanas", selected: true },
-          { id: 3, name: "Frutillas", selected: false },
-          { id: 4, name: "Sandías", selected: true },
-        ],
-      })
-    );
-  };
   return (
-    <div className="flex flex-col items-center container mx-auto py-4 relative">
+    <div className="flex flex-col items-center container mx-auto py-4 ">
       <h1 className="text-slate-200 text-4xl">HackList</h1>
       <div className="flex flex-col container mx-auto xl:w-2/3 py-4 px-2 gap-6">
         {listMarket.map((market) => {
@@ -45,26 +30,7 @@ export default () => {
             </Link>
           );
         })}
-        <button
-          className="bg-green-600 hover:bg-green-500 rounded-full
-          absolute -bottom-10 text-4xl flex justify-center py-2 px-2"
-          onClick={hadlerCreateMarket}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="currentColor"
-            className="w-6 h-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M12 6v12m6-6H6"
-            />
-          </svg>
-        </button>
+        <Modal />
       </div>
     </div>
   );
