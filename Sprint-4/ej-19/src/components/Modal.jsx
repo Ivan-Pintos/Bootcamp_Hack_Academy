@@ -1,23 +1,20 @@
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addMarket } from "../redux/listMarketSlice";
+import { nanoid } from "@reduxjs/toolkit";
 
-export default function Modal() {
-  //Modal things
-  const [open, setOpen] = useState(false);
+export default function Modal({ open, setOpen }) {
   const cancelButtonRef = useRef(null);
+  const dispatch = useDispatch();
 
   const [inpuNameList, setinpuNameList] = useState("");
-
-  const dispatch = useDispatch();
-  const { listMarket } = useSelector((state) => state);
 
   const handlerCreateMarket = () => {
     setOpen(false);
     dispatch(
       addMarket({
-        id: listMarket[listMarket.length - 1].id + 1,
+        id: nanoid(),
         name: inpuNameList,
         createdDate: Date(),
         products: [],
@@ -29,26 +26,6 @@ export default function Modal() {
   };
   return (
     <div className="relative">
-      <button
-        className="bg-green-600 hover:bg-green-500 rounded-full
-          absolute -bottom-10 text-4xl flex justify-center py-2 px-2"
-        onClick={() => setOpen(true)}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth="1.5"
-          stroke="currentColor"
-          className="w-6 h-6"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M12 6v12m6-6H6"
-          />
-        </svg>
-      </button>
       <Transition.Root show={open} as={Fragment}>
         <Dialog
           as="div"

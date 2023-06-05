@@ -1,36 +1,36 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, nanoid } from "@reduxjs/toolkit";
 
 const listMarketSlice = createSlice({
   name: "list_market",
   initialState: [
     {
-      id: 1,
+      id: nanoid(),
       name: "Frutería",
       createdDate: Date(),
       products: [
-        { id: 1, name: "Bananas", selected: false },
-        { id: 2, name: "Manzanas", selected: true },
-        { id: 3, name: "Frutillas", selected: false },
-        { id: 4, name: "Sandías", selected: true },
+        { id: nanoid(), name: "Bananas", selected: false },
+        { id: nanoid(), name: "Manzanas", selected: true },
+        { id: nanoid(), name: "Frutillas", selected: false },
+        { id: nanoid(), name: "Sandías", selected: true },
       ],
     },
     {
-      id: 2,
+      id: nanoid(),
       name: "Verdulería",
       createdDate: Date(),
       products: [
-        { id: 1, name: "Tomates", selected: false },
-        { id: 2, name: "Zanahorias", selected: true },
-        { id: 3, name: "Espinacas", selected: false },
+        { id: nanoid(), name: "Tomates", selected: false },
+        { id: nanoid(), name: "Zanahorias", selected: true },
+        { id: nanoid(), name: "Espinacas", selected: false },
       ],
     },
     {
-      id: 3,
+      id: nanoid(),
       name: "Supermercado ",
       createdDate: Date(),
       products: [
-        { id: 1, name: "Cereales", selected: false },
-        { id: 2, name: "Galletas", selected: false },
+        { id: nanoid(), name: "Cereales", selected: false },
+        { id: nanoid(), name: "Galletas", selected: false },
       ],
     },
   ],
@@ -44,12 +44,9 @@ const listMarketSlice = createSlice({
     },
     addProduct(state, action) {
       state.map((market) =>
-        market.id === action.payload.id
+        market.id === action.payload.marketId
           ? market.products.push({
-              id:
-                market.products.length !== 0
-                  ? market.products[market.products.length - 1].id + 1
-                  : 1,
+              id: action.payload.productId,
               selected: false,
               name: action.payload.product,
             })
@@ -70,8 +67,8 @@ const listMarketSlice = createSlice({
       );
     },
     selectProduct(state, action) {
-      return state.map((market) => {
-        return market.id === action.payload.mercadoId
+      return state.map((market) =>
+        market.id === action.payload.mercadoId
           ? {
               ...market,
               products: market.products.map((product) =>
@@ -80,8 +77,8 @@ const listMarketSlice = createSlice({
                   : product
               ),
             }
-          : market;
-      });
+          : market
+      );
     },
   },
 });
