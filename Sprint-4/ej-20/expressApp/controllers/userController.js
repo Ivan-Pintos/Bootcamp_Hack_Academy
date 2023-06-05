@@ -1,6 +1,6 @@
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
+
 async function store(req, res) {
   const user = await new User({
     firstname: req.body.firstname,
