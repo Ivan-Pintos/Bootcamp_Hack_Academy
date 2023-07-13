@@ -1,12 +1,13 @@
 import ListLineMoviesItems from "../components/ListLineMoviesItems";
 import Navbar from "../components/Navbar";
 import Header from "../components/Header";
+import header from "../img/header.jpg";
 
 import { useEffect, useState } from "react";
 import axios from "axios";
 
 export default () => {
-  const [movies, setMovies] = useState();
+  const [movies, setMovies] = useState([]);
 
   useEffect(() => {
     const getFirstMovies = async () => {
@@ -30,17 +31,23 @@ export default () => {
   return (
     <>
       <Navbar />
-      <Header />
-      {movies && (
+      <Header img={header} />
+      {movies.length > 0 && (
         <div className="text-slate-200 mx-10 flex flex-col">
           <ListLineMoviesItems
             Movies={movies.slice(0, 5)}
             Title={"Populares"}
+            category="something"
           />
-          <ListLineMoviesItems Movies={movies.slice(5, 10)} Title={"Nuevas"} />
+          <ListLineMoviesItems
+            Movies={movies.slice(5, 10)}
+            Title={"Nuevas"}
+            category="something"
+          />
           <ListLineMoviesItems
             Movies={movies.slice(10, 15)}
             Title={"Mas vistas"}
+            category="something"
           />
         </div>
       )}

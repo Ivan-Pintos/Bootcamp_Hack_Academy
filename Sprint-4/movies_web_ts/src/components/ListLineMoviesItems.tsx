@@ -1,5 +1,29 @@
 import LineMoviesItem from "./LineMoviesItem";
-export default ({ Movies, Title, category }) => {
+
+type Movie = {
+  adult: number;
+  backdrop_path: string;
+  genre_ids: number[];
+  id: number;
+  original_language: string;
+  original_title: string;
+  overview: string;
+  popularity: number;
+  poster_path: string;
+  release_date: string;
+  title: string;
+  video: boolean;
+  vote_average: number;
+  vote_count: number;
+};
+
+type LineMoviesProps = {
+  Movies: Movie[];
+  Title: string;
+  category: string;
+};
+
+const LineMovies = ({ Movies, Title, category }: LineMoviesProps) => {
   return (
     <div className="mt-10 flex flex-col gap-5">
       <div className="border-b border-blue-400 pb-4 flex justify-between">
@@ -16,3 +40,5 @@ export default ({ Movies, Title, category }) => {
     </div>
   );
 };
+
+export default LineMovies;
