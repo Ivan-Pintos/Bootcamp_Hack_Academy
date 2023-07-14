@@ -12,7 +12,9 @@ export default ({ originalMovies, setMovies }: FilterProps) => {
   const handleRating = (rate: number) => {
     setRatingValue(rate);
     setMovies(
-      originalMovies.filter((movie: Movie) => movie.vote_average >= rate * 2)
+      originalMovies.filter(
+        (movie: Movie) => movie.vote_average / 2 >= rate - 1
+      )
     );
   };
 
@@ -21,21 +23,19 @@ export default ({ originalMovies, setMovies }: FilterProps) => {
       onClick={handleRating}
       size={25}
       SVGstyle={{ display: "inline-block" }}
-      allowFraction={true}
       initialValue={ratingValue}
       showTooltip={true}
       tooltipClassName="w-40 text-center bg-slate-800"
       tooltipArray={[
-        "1 Rating",
+        "0 Rating",
+
         "2 Rating",
-        "3 Rating",
+
         "4 Rating",
-        "5 Rating",
+
         "6 Rating",
-        "7 Rating",
+
         "8 Rating",
-        "9 Rating",
-        "10 Rating",
       ]}
       tooltipDefaultText="0 Rating"
     />

@@ -1,5 +1,5 @@
 import FilterStars from "../components/FilterStars";
-import MoviesItem from "../components/MoviesItem";
+import MoviesItem from "../components/MovieItem";
 import Navbar from "../components/Navbar";
 import Header from "../components/Header";
 import header from "../img/header.jpg";
@@ -42,7 +42,7 @@ export default () => {
           <FilterStars originalMovies={allMovies} setMovies={setMovies} />
         </section>
 
-        <section className="flex items-center flex-col">
+        <section className="flex items-center flex-col gap-4">
           <h1 className="text-2xl">Movies</h1>
           <div className="flex flex-wrap gap-2 justify-center">
             {movies.length > 0
@@ -51,7 +51,7 @@ export default () => {
                     <MoviesItem movie={movie} key={movie.id} rate={true} />
                   );
                 })
-              : ""}
+              : "Sorry actually we do not have any movie with the filters selected. Please select other filter options."}
           </div>
         </section>
       </div>
