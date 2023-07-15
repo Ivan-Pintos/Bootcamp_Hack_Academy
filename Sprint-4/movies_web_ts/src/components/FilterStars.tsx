@@ -1,6 +1,6 @@
 import { Rating } from "react-simple-star-rating";
 import { useState } from "react";
-import { Movie } from "../../type";
+import { Movie } from "../../utils";
 
 type FilterProps = {
   originalMovies: Movie[];

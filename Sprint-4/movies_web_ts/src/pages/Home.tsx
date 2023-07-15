@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar";
 import Header from "../components/Header";
 import header from "../img/header.jpg";
 
-import { sortvalue } from "../../type";
+import { sortvalue } from "../../utils";
 
 export default () => {
   return (

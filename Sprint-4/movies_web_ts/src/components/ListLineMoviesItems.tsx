@@ -1,5 +1,5 @@
 import LineMoviesItem from "./MovieItem.tsx";
-import { Movie, sortvalue } from "../../type.ts";
+import { Movie, sortvalue } from "../../utils.ts";
 
 import { useEffect, useState } from "react";
 import axios from "axios";

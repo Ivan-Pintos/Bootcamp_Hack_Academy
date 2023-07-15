@@ -1,5 +1,5 @@
 import { AiFillStar } from "react-icons/ai";
-import { Movie } from "../../type.ts";
+import { Movie } from "../../utils.ts";
 import { useNavigate } from "react-router-dom";
 
 type MovieProps = {
