@@ -6,13 +6,15 @@ import axios from "axios";
 
 import Header from "../components/Header";
 import Navbar from "../components/Navbar";
+import YoutubeVideo from "../components/YoutubeVideo";
 
-import { Movie, languageCodes } from "../../utils";
+import { Movie, languageCodes, MovieVideos } from "../../utils";
 import "react-toastify/dist/ReactToastify.css";
 
 export default () => {
   const notify = () => toast("Esta funcionalidad sigue en desarrollo");
   const [movie, setMovie] = useState<Movie>();
+  const [movieVideos, setMovieVideos] = useState<MovieVideos>();
   const { id } = useParams();
 
   useEffect(() => {
@@ -34,6 +36,31 @@ export default () => {
 
     getFirstMovies();
   }, []);
+  useEffect(() => {
+    const getFirstMovies = async () => {
+      const options = {
+        method: "GET",
+        url: `https://api.themoviedb.org/3/movie/${id}/videos`,
+        headers: {
+          accept: "application/json",
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmNThjYTNkMTI5YzAxMGZmY2NmMmM3OWEyMWNmNTQzZSIsInN1YiI6IjY0YWVmOGVmY2RkYmJjMDBlOGJiN2E3MSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.5-Zk6auzNE8hgBnOSzu2WVskOWMBqahahPu9QCVlFLI",
+        },
+      };
+
+      let response = await axios.request(options);
+      console.log({
+        ...response.data,
+        results: response.data.results.slice(0, 5),
+      });
+      return setMovieVideos({
+        ...response.data,
+        results: response.data.results.slice(0, 5),
+      });
+    };
+
+    getFirstMovies();
+  }, [movie]);
   return (
     movie && (
       <>
@@ -101,6 +128,11 @@ export default () => {
                     <span>{movie.runtime}</span>
                   </div>
                 </div>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {movieVideos?.results.map((result) => {
+                  return <YoutubeVideo VideoID={result.key} key={result.id} />;
+                })}
               </div>
             </div>
             <div className="flex flex-col w-1/3 gap-4">
