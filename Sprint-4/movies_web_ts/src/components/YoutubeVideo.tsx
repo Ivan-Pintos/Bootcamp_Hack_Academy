@@ -9,8 +9,6 @@ export default ({ VideoID }: YouTubeVideoProps) => {
     event.target.pauseVideo();
   };
   const opts: YouTubeProps["opts"] = {
-    height: "195",
-    width: "320",
     playerVars: {
       autoplay: 0,
     },

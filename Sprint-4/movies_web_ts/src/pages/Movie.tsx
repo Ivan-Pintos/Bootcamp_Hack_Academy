@@ -1,12 +1,13 @@
 import { ToastContainer, toast } from "react-toastify";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { Carousel } from "flowbite-react";
 import uniqolor from "uniqolor";
 import axios from "axios";
 
+import YoutubeVideo from "../components/YoutubeVideo";
 import Header from "../components/Header";
 import Navbar from "../components/Navbar";
-import YoutubeVideo from "../components/YoutubeVideo";
 
 import { Movie, languageCodes, MovieVideos } from "../../utils";
 import "react-toastify/dist/ReactToastify.css";
@@ -18,7 +19,7 @@ export default () => {
   const { id } = useParams();
 
   useEffect(() => {
-    const getFirstMovies = async () => {
+    const getMovie = async () => {
       const options = {
         method: "GET",
         url: `https://api.themoviedb.org/3/movie/${id}?language=es-ES`,
@@ -30,14 +31,15 @@ export default () => {
       };
 
       let response = await axios.request(options);
-      console.log(response.data);
+
       return setMovie(response.data);
     };
 
-    getFirstMovies();
+    getMovie();
   }, []);
+
   useEffect(() => {
-    const getFirstMovies = async () => {
+    const getVideos = async () => {
       const options = {
         method: "GET",
         url: `https://api.themoviedb.org/3/movie/${id}/videos`,
@@ -49,18 +51,22 @@ export default () => {
       };
 
       let response = await axios.request(options);
-      console.log({
-        ...response.data,
-        results: response.data.results.slice(0, 5),
-      });
       return setMovieVideos({
         ...response.data,
         results: response.data.results.slice(0, 5),
       });
     };
 
-    getFirstMovies();
+    getVideos();
   }, [movie]);
+
+  const MovieDuration = (durationtTime: number): string => {
+    const hours: number = Math.floor(durationtTime / 60);
+    const munutes: number = durationtTime - hours * 60;
+
+    hours;
+    return `${hours}h ${munutes}m`;
+  };
   return (
     movie && (
       <>
@@ -109,11 +115,13 @@ export default () => {
                   </div>
                   <div>
                     <h3 className="text-xl font-semibold">Cantidad de votos</h3>
-                    <span>{movie.vote_count}</span>
+                    <span>{movie.vote_count.toLocaleString("es-ES")}</span>
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold">Remuneracion?</h3>
-                    <span>{movie.revenue}</span>
+                    <h3 className="text-xl font-semibold">Recaudacion</h3>
+                    <span>
+                      $ {movie.revenue && movie.revenue.toLocaleString("es-ES")}
+                    </span>
                   </div>
                 </div>
                 <div className="flex flex-col gap-4">
@@ -125,15 +133,19 @@ export default () => {
                   </div>
                   <div>
                     <h3 className="text-xl font-semibold">Duracion:</h3>
-                    <span>{movie.runtime}</span>
+                    <span>{movie.runtime && MovieDuration(movie.runtime)}</span>
                   </div>
                 </div>
               </div>
-              <div className="flex flex-wrap gap-2">
+              <Carousel slide={false}>
                 {movieVideos?.results.map((result) => {
-                  return <YoutubeVideo VideoID={result.key} key={result.id} />;
+                  return (
+                    <div className="flex w-full justify-center">
+                      <YoutubeVideo VideoID={result.key} key={result.id} />
+                    </div>
+                  );
                 })}
-              </div>
+              </Carousel>
             </div>
             <div className="flex flex-col w-1/3 gap-4">
               <img
