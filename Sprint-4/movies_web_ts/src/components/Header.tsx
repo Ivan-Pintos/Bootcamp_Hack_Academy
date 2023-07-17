@@ -1,6 +1,4 @@
 //r
-import { useEffect } from "react";
-
 type headerProps = {
   img: string;
   Title?: string;

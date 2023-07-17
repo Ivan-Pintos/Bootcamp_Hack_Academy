@@ -1,3 +1,4 @@
+import InfiniteScroll from "../components/InfiniteScroll";
 import FilterStars from "../components/FilterStars";
 import MoviesItem from "../components/MovieItem";
 import Navbar from "../components/Navbar";
@@ -7,6 +8,7 @@ import header from "../img/header.jpg";
 import { Movie } from "../../utils";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import ScrollUpButton from "../components/ScrollUpButton";
 
 export default () => {
   const [allMovies, setAllMovies] = useState<Movie[]>([]);
@@ -16,7 +18,7 @@ export default () => {
     const getFirstMovies = async () => {
       const options = {
         method: "GET",
-        url: "https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=es-ES&page=1&sort_by=popularity.desc",
+        url: "https://api.themoviedb.org/3/discover/movie?page=1",
         headers: {
           accept: "application/json",
           Authorization:
@@ -54,6 +56,11 @@ export default () => {
               : "Sorry actually we do not have any movie with the filters selected. Please select other filter options."}
           </div>
         </section>
+        <ScrollUpButton />
+        <InfiniteScroll
+          originalMovies={allMovies}
+          setOriginalMovies={setAllMovies}
+        />
       </div>
     </>
   );

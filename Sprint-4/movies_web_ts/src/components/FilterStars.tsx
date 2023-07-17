@@ -1,5 +1,5 @@
 import { Rating } from "react-simple-star-rating";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Movie } from "../../utils";
 
 type FilterProps = {
@@ -17,6 +17,14 @@ export default ({ originalMovies, setMovies }: FilterProps) => {
       )
     );
   };
+
+  useEffect(() => {
+    setMovies(
+      originalMovies.filter(
+        (movie: Movie) => movie.vote_average / 2 >= ratingValue - 1
+      )
+    );
+  }, [originalMovies]);
 
   return (
     <Rating

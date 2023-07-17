@@ -6,6 +6,7 @@ import uniqolor from "uniqolor";
 import axios from "axios";
 
 import YoutubeVideo from "../components/YoutubeVideo";
+import { Rating } from "react-simple-star-rating";
 import Header from "../components/Header";
 import Navbar from "../components/Navbar";
 
@@ -31,7 +32,6 @@ export default () => {
       };
 
       let response = await axios.request(options);
-
       return setMovie(response.data);
     };
 
@@ -134,6 +134,16 @@ export default () => {
                   <div>
                     <h3 className="text-xl font-semibold">Duracion:</h3>
                     <span>{movie.runtime && MovieDuration(movie.runtime)}</span>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold">Rating:</h3>
+                    <Rating
+                      size={25}
+                      SVGstyle={{ display: "inline-block" }}
+                      initialValue={Math.floor(movie.vote_average)}
+                      iconsCount={10}
+                      readonly
+                    />
                   </div>
                 </div>
               </div>
