@@ -51,7 +51,7 @@ export default () => {
     <>
       <Navbar />
       <Header img={header} />
-      <div className="text-slate-200 mx-10 flex flex-col gap-2 mt-5">
+      <div className="text-slate-200 mx-2 md:mx-10 flex flex-col gap-2 mt-5">
         <section className="flex justify-around items-center flex-col gap-4 sm:flex-row ">
           <FilterStars setFilterRatingValue={setFilterRatingValue} />
           <SearchInput
@@ -63,9 +63,10 @@ export default () => {
           />
         </section>
 
-        <section className="flex items-center flex-col gap-4">
+        <section className="flex flex-col gap-4">
           <h1 className="text-2xl">Movies</h1>
-          <div className="flex flex-wrap gap-2 justify-center">
+
+          <div className="flex flex-wrap">
             {movies.length > 0
               ? movies
                   .filter(

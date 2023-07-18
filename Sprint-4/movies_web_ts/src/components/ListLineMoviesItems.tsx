@@ -4,8 +4,6 @@ import { Movie, sortvalue } from "../../utils.ts";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-import { Link } from "react-router-dom";
-
 type LineMoviesProps = {
   Title: string;
   value: sortvalue;
@@ -38,7 +36,7 @@ export default ({ Title, value, rate }: LineMoviesProps) => {
         (movie: Movie) => movie.poster_path != null && movie.poster_path != ""
       );
       console.log(validMovies);
-      return setMovies(validMovies.slice(0, 5));
+      return setMovies(validMovies.slice(0, 6));
     };
 
     getFirstMovies();
@@ -46,16 +44,10 @@ export default ({ Title, value, rate }: LineMoviesProps) => {
 
   return (
     <div className="mt-10 flex flex-col gap-5">
-      <div className="border-b border-blue-400 pb-4 flex justify-between">
-        <h1>{Title}</h1>
-        <Link
-          to="/movies"
-          className="underline-offset-2 underline hover:cursor-pointer"
-        >
-          See more
-        </Link>
+      <div className="border-b border-blue-400 pb-4 flex justify-between ">
+        <h1 className="text-xl">{Title}</h1>
       </div>
-      <div className="flex justify-between gap-2">
+      <div className="flex-wrap flex ">
         {movies.map(
           (movie: Movie) =>
             movie.poster_path && (

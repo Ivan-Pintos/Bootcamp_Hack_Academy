@@ -81,8 +81,24 @@ export default () => {
             img={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
             Title={movie.title}
           />
-          <div className="text-slate-200 mx-10 py-5 flex flex-row gap-20">
-            <div className="flex flex-col gap-4 w-2/3">
+          <div className="text-slate-200 mx-2  md:mx-10 py-5 flex flex-col md:flex-row-reverse gap-20">
+            <div className="flex flex-col w-full md:w-1/3 gap-4 items-center">
+              <img
+                src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+                alt={`poster de la pelicula ${movie.title}`}
+                className="rounded-xl"
+              />
+              <div className="block md:hidden">
+                <Rating
+                  size={25}
+                  SVGclassName="inline-flex"
+                  initialValue={Math.floor(movie.vote_average)}
+                  iconsCount={10}
+                  readonly
+                />
+              </div>
+            </div>
+            <div className="flex flex-col gap-4 w-full md:w-2/3">
               <div className="flex flex-wrap gap-5">
                 {movie.genres &&
                   movie.genres.map((genre) => {
@@ -105,7 +121,7 @@ export default () => {
               </div>
               <h2 className="text-2xl font-semibold">Descripción</h2>
               <p>{movie.overview}</p>
-              <div className="flex row w-2/3 justify-between mt-10">
+              <div className="flex flex-row gap-10 justify-between my-10 lg:w-2/3">
                 <div className="flex flex-col gap-4">
                   <div>
                     <h3 className="text-xl font-semibold">Original Lenguaje</h3>
@@ -133,11 +149,11 @@ export default () => {
                     <h3 className="text-xl font-semibold">Duracion:</h3>
                     <span>{movie.runtime && MovieDuration(movie.runtime)}</span>
                   </div>
-                  <div>
+                  <div className="hidden sm:block">
                     <h3 className="text-xl font-semibold">Rating:</h3>
                     <Rating
                       size={25}
-                      SVGstyle={{ display: "inline-block" }}
+                      SVGclassName="inline-flex"
                       initialValue={Math.floor(movie.vote_average)}
                       iconsCount={10}
                       readonly
@@ -145,22 +161,13 @@ export default () => {
                   </div>
                 </div>
               </div>
-              <Carousel slide={false}>
-                {movieVideos?.results.map((result) => {
-                  return (
-                    <div className="flex w-full justify-center">
-                      <YoutubeVideo VideoID={result.key} key={result.id} />
-                    </div>
-                  );
-                })}
-              </Carousel>
-            </div>
-            <div className="flex flex-col w-1/3 gap-4">
-              <img
-                src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
-                alt={`poster de la pelicula ${movie.title}`}
-                className="rounded-xl"
-              />
+              <div className="w-full lg:w-2/3 h-80">
+                <Carousel slide={false}>
+                  {movieVideos?.results.map((result) => (
+                    <YoutubeVideo VideoID={result.key} key={result.id} />
+                  ))}
+                </Carousel>
+              </div>
             </div>
           </div>
         </>

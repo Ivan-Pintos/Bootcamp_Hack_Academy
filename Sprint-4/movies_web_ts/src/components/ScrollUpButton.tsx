@@ -23,7 +23,8 @@ export default () => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={scrollToTop}
-      className="fixed bottom-10 right-10 text-blue-600 text-4xl "
+      className="fixed bottom-10 right-10 text-blue-600 text-4xl bg-slate-950 rounded-full
+      "
     >
       {isHovering ? <BsFillArrowUpCircleFill /> : <BsArrowUpCircle />}
     </button>

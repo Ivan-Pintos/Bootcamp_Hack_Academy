@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default () => {
   return (
-    <div className="bg-gradient-opacity w-full px-9 text-slate-100 bg-opacity-80 absolute z-10 h-16 flex items-center justify-between">
+    <div className="bg-gradient-opacity w-full px-2 md:px-10 text-slate-100 bg-opacity-80 absolute z-10 h-16 flex items-center justify-between">
       <Link to="/" className=" text-xl">
         Pinflix
       </Link>

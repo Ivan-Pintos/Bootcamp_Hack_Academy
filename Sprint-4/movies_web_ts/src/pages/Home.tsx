@@ -11,7 +11,7 @@ export default () => {
       <Navbar />
       <Header img={header} />
 
-      <div className="text-slate-200 mx-10 flex flex-col">
+      <div className="text-slate-200 mx-2 md:mx-10 flex flex-col">
         <ListLineMoviesItems Title={"Populares"} value={sortvalue.populars} />
         <ListLineMoviesItems
           Title={"Futuros estrenos"}
