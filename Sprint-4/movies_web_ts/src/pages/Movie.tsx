@@ -63,8 +63,6 @@ export default () => {
   const MovieDuration = (durationtTime: number): string => {
     const hours: number = Math.floor(durationtTime / 60);
     const munutes: number = durationtTime - hours * 60;
-
-    hours;
     return `${hours}h ${munutes}m`;
   };
   return (

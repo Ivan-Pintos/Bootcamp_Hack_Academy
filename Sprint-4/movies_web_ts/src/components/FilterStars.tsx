@@ -33,7 +33,7 @@ export default ({ originalMovies, setMovies }: FilterProps) => {
       SVGstyle={{ display: "inline-block" }}
       initialValue={ratingValue}
       showTooltip={true}
-      tooltipClassName="w-40 text-center bg-slate-800"
+      tooltipClassName="w-40 text-center bg-slate-800 inline"
       tooltipArray={[
         "0 Rating",
 

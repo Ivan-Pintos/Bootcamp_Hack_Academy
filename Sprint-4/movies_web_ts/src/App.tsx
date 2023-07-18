@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 
 import Home from "./pages/Home";
 import Movies from "./pages/Movies";
@@ -10,6 +10,7 @@ export default function App() {
       <Route path="/" element={<Home />} />
       <Route path="/movies" element={<Movies />} />
       <Route path="/movie/:id" element={<Movie />} />
+      <Route path="/*" element={<Navigate to="/" />} />
     </Routes>
   );
 }

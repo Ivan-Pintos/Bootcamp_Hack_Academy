@@ -13,7 +13,10 @@ export default () => {
 
       <div className="text-slate-200 mx-10 flex flex-col">
         <ListLineMoviesItems Title={"Populares"} value={sortvalue.populars} />
-        <ListLineMoviesItems Title={"Nuevas"} value={sortvalue.news} />
+        <ListLineMoviesItems
+          Title={"Futuros estrenos"}
+          value={sortvalue.news}
+        />
         <ListLineMoviesItems
           Title={"Mejor rating"}
           value={sortvalue.votes}

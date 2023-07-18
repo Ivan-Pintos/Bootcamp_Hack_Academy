@@ -1,24 +1,31 @@
 import InfiniteScroll from "../components/InfiniteScroll";
+import ScrollUpButton from "../components/ScrollUpButton";
 import FilterStars from "../components/FilterStars";
+import SearchInput from "../components/SearchInput";
 import MoviesItem from "../components/MovieItem";
 import Navbar from "../components/Navbar";
 import Header from "../components/Header";
 import header from "../img/header.jpg";
 
-import { Movie } from "../../utils";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import ScrollUpButton from "../components/ScrollUpButton";
 
+import { Movie } from "../../utils";
+
+type dataObject = {
+  total_pages: number;
+};
 export default () => {
   const [allMovies, setAllMovies] = useState<Movie[]>([]);
   const [movies, setMovies] = useState<Movie[]>([]);
+  const [data, setData] = useState<dataObject>({ total_pages: 0 }); // response from axios call
+  const [query, setQuery] = useState<string>("");
 
   useEffect(() => {
     const getFirstMovies = async () => {
       const options = {
         method: "GET",
-        url: "https://api.themoviedb.org/3/discover/movie?page=1",
+        url: "https://api.themoviedb.org/3/discover/movie",
         headers: {
           accept: "application/json",
           Authorization:
@@ -40,8 +47,16 @@ export default () => {
       <Navbar />
       <Header img={header} />
       <div className="text-slate-200 mx-10 flex flex-col gap-2 mt-5">
-        <section className="flex justify-center">
+        <section className="flex justify-around items-center flex-col gap-4 sm:flex-row ">
           <FilterStars originalMovies={allMovies} setMovies={setMovies} />
+          <SearchInput
+            ApiUrl="https://api.themoviedb.org/3/search/movie"
+            setResponse={setMovies}
+            originalContent={allMovies}
+            searchType="onChange"
+            setExternalQuery={setQuery}
+            setAllData={setData}
+          />
         </section>
 
         <section className="flex items-center flex-col gap-4">
@@ -58,8 +73,34 @@ export default () => {
         </section>
         <ScrollUpButton />
         <InfiniteScroll
-          originalMovies={allMovies}
-          setOriginalMovies={setAllMovies}
+          originalContent={
+            movies.every((movie) =>
+              allMovies.some((allMovie) => allMovie.id === movie.id)
+            )
+              ? allMovies
+              : movies
+          }
+          setOriginalContent={
+            movies.every((movie) =>
+              allMovies.some((allMovie) => allMovie.id === movie.id)
+            )
+              ? setAllMovies
+              : setMovies
+          }
+          ApiUrl={
+            movies.every((movie) =>
+              allMovies.some((allMovie) => allMovie.id === movie.id)
+            )
+              ? "https://api.themoviedb.org/3/discover/movie"
+              : `https://api.themoviedb.org/3/search/movie?query=${query}`
+          }
+          iterationMaxNumber={
+            movies.every((movie) =>
+              allMovies.some((allMovie) => allMovie.id === movie.id)
+            )
+              ? 500
+              : data.total_pages
+          }
         />
       </div>
     </>
