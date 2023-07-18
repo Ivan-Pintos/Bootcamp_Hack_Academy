@@ -1,37 +1,20 @@
 import { Rating } from "react-simple-star-rating";
-import { useState, useEffect } from "react";
-import { Movie } from "../../utils";
 
 type FilterProps = {
-  originalMovies: Movie[];
-  setMovies: React.Dispatch<React.SetStateAction<Movie[]>>;
+  setFilterRatingValue: React.Dispatch<React.SetStateAction<number>>;
 };
-export default ({ originalMovies, setMovies }: FilterProps) => {
-  const [ratingValue, setRatingValue] = useState(0);
 
+export default ({ setFilterRatingValue }: FilterProps) => {
   const handleRating = (rate: number) => {
-    setRatingValue(rate);
-    setMovies(
-      originalMovies.filter(
-        (movie: Movie) => movie.vote_average / 2 >= rate - 1
-      )
-    );
+    setFilterRatingValue(rate);
   };
-
-  useEffect(() => {
-    setMovies(
-      originalMovies.filter(
-        (movie: Movie) => movie.vote_average / 2 >= ratingValue - 1
-      )
-    );
-  }, [originalMovies]);
 
   return (
     <Rating
       onClick={handleRating}
       size={25}
       SVGstyle={{ display: "inline-block" }}
-      initialValue={ratingValue}
+      initialValue={0}
       showTooltip={true}
       tooltipClassName="w-40 text-center bg-slate-800 inline"
       tooltipArray={[

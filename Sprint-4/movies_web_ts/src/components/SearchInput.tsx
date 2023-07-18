@@ -5,7 +5,6 @@ import axios from "axios";
 type searchProps = {
   ApiUrl: string;
   setResponse: React.Dispatch<React.SetStateAction<any[]>>;
-  originalContent?: any[];
   searchType?: "onChange" | "onSubmit";
   setAllData?: React.Dispatch<React.SetStateAction<any>>;
   setExternalQuery?: React.Dispatch<React.SetStateAction<string>>;
@@ -15,14 +14,13 @@ export default ({
   ApiUrl,
   setResponse,
   searchType,
-  originalContent,
   setExternalQuery,
   setAllData,
 }: searchProps) => {
   const [query, setQuery] = useState<string>("");
 
   const handleSearch = async (value: string) => {
-    if (value?.trim()) {
+    if (value.trim()) {
       const options = {
         method: "GET",
         url: ApiUrl,
@@ -37,10 +35,8 @@ export default ({
       };
 
       let response = await axios.request(options);
-      setAllData && setAllData({ total_pages: response.data.total_pages });
+      setAllData && setAllData({ total_pages: response.data.total_pages }); // possible wrong
       return setResponse(response.data.results);
-    } else {
-      return originalContent && setResponse(originalContent);
     }
   };
   const handleChangeSearch = (event: React.ChangeEvent<HTMLInputElement>) => {

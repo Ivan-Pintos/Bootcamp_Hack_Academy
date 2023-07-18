@@ -16,11 +16,17 @@ type dataObject = {
   total_pages: number;
 };
 export default () => {
-  const [allMovies, setAllMovies] = useState<Movie[]>([]);
-  const [movies, setMovies] = useState<Movie[]>([]);
   const [data, setData] = useState<dataObject>({ total_pages: 0 }); // response from axios call
+  const [filterRatingValue, setFilterRatingValue] = useState<number>(0);
+  const [movies, setMovies] = useState<Movie[]>([]);
   const [query, setQuery] = useState<string>("");
-
+  const [queryChange, setQueryChange] = useState<boolean>();
+  useEffect(() => {
+    setQueryChange(true);
+    setTimeout(() => {
+      setQueryChange(false);
+    }, 2000);
+  }, [query]);
   useEffect(() => {
     const getFirstMovies = async () => {
       const options = {
@@ -34,7 +40,6 @@ export default () => {
       };
 
       let response = await axios.request(options);
-      setAllMovies(response.data.results);
       setMovies(response.data.results);
       return;
     };
@@ -48,11 +53,10 @@ export default () => {
       <Header img={header} />
       <div className="text-slate-200 mx-10 flex flex-col gap-2 mt-5">
         <section className="flex justify-around items-center flex-col gap-4 sm:flex-row ">
-          <FilterStars originalMovies={allMovies} setMovies={setMovies} />
+          <FilterStars setFilterRatingValue={setFilterRatingValue} />
           <SearchInput
             ApiUrl="https://api.themoviedb.org/3/search/movie"
             setResponse={setMovies}
-            originalContent={allMovies}
             searchType="onChange"
             setExternalQuery={setQuery}
             setAllData={setData}
@@ -63,44 +67,29 @@ export default () => {
           <h1 className="text-2xl">Movies</h1>
           <div className="flex flex-wrap gap-2 justify-center">
             {movies.length > 0
-              ? movies.map((movie: Movie) => {
-                  return (
-                    <MoviesItem movie={movie} key={movie.id} rate={true} />
-                  );
-                })
+              ? movies
+                  .filter(
+                    (movie) => movie.vote_average / 2 >= filterRatingValue - 1
+                  )
+                  .map((movie: Movie) => {
+                    return (
+                      <MoviesItem movie={movie} key={movie.id} rate={true} />
+                    );
+                  })
               : "Sorry actually we do not have any movie with the filters selected. Please select other filter options."}
           </div>
         </section>
         <ScrollUpButton />
         <InfiniteScroll
-          originalContent={
-            movies.every((movie) =>
-              allMovies.some((allMovie) => allMovie.id === movie.id)
-            )
-              ? allMovies
-              : movies
-          }
-          setOriginalContent={
-            movies.every((movie) =>
-              allMovies.some((allMovie) => allMovie.id === movie.id)
-            )
-              ? setAllMovies
-              : setMovies
-          }
+          originalContent={movies}
+          setOriginalContent={setMovies}
           ApiUrl={
-            movies.every((movie) =>
-              allMovies.some((allMovie) => allMovie.id === movie.id)
-            )
-              ? "https://api.themoviedb.org/3/discover/movie"
-              : `https://api.themoviedb.org/3/search/movie?query=${query}`
+            query.trim()
+              ? `https://api.themoviedb.org/3/search/movie?query=${query}`
+              : "https://api.themoviedb.org/3/discover/movie"
           }
-          iterationMaxNumber={
-            movies.every((movie) =>
-              allMovies.some((allMovie) => allMovie.id === movie.id)
-            )
-              ? 500
-              : data.total_pages
-          }
+          iterationMaxNumber={query.trim() ? data.total_pages : 500}
+          resetPageCounter={queryChange}
         />
       </div>
     </>

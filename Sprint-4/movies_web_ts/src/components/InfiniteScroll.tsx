@@ -1,12 +1,13 @@
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 type InfiniteScrollProps = {
-  originalContent: any[];
-  setOriginalContent: React.Dispatch<React.SetStateAction<any[]>>;
   ApiUrl: string;
+  originalContent: any[];
   iterationMaxNumber: number;
+  setOriginalContent: React.Dispatch<React.SetStateAction<any[]>>;
+  resetPageCounter?: boolean;
 };
 
 export default ({
@@ -14,8 +15,13 @@ export default ({
   setOriginalContent,
   ApiUrl,
   iterationMaxNumber,
+  resetPageCounter,
 }: InfiniteScrollProps) => {
   const [page, setPage] = useState<number>(2);
+
+  useEffect(() => {
+    resetPageCounter && setPage(2);
+  }, [resetPageCounter]);
 
   const fetchData = async () => {
     const options = {
